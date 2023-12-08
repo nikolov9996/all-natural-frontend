@@ -1,10 +1,14 @@
+import { ThemeProvider } from "@mui/material"
 import AppRouter from "./static/router"
+import mainTheme from "./static/theme"
 
 function App() {
 
-  return ( // providers here: react query, auth provider etc...
+  return ( // providers here: react query, auth provider, theme etc...
     <>
-      <AppRouter />
+      <ThemeProvider theme={mainTheme}>
+        <AppRouter />
+      </ThemeProvider>
     </>
   )
 }
