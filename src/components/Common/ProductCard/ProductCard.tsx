@@ -1,7 +1,7 @@
 import React from 'react'
 import { ProductType } from './ProductCard.static'
-import { CardActions, CardContent, CardMedia, Chip, Typography } from '@mui/material'
-import { StyledCard } from './ProductCard.styles'
+import { CardMedia, Rating } from '@mui/material'
+import { Currency, Price, PriceBox, StyledCard, CardFooter, StyledName, Content } from './ProductCard.styles'
 import FavoriteIcon from './FavoriteIcon'
 
 const ProductCard: React.FC<{ product: ProductType }> = ({ product }) => {
@@ -11,20 +11,19 @@ const ProductCard: React.FC<{ product: ProductType }> = ({ product }) => {
       <FavoriteIcon {...product} />
       <CardMedia
         component="img"
-        height="120"
+        height="220"
         image={product.photos[0]}
-        alt="product "
+        alt="product"
       />
 
-      <CardContent>
-        {/* style this */}
-        <Typography> {product.name}</Typography>
+      <Content >
+        <Rating readOnly value={3} size={'small'} />
+        <CardFooter>
+          <StyledName >{product.name}</StyledName>
+          <PriceBox><Price>{product.price}</Price><Currency>EUR</Currency></PriceBox>
+        </CardFooter>
+      </Content>
 
-      </CardContent>
-      <CardActions>
-        {/* style this as well */}
-        <Chip label={product.price} />
-      </CardActions>
     </StyledCard>
   )
 }

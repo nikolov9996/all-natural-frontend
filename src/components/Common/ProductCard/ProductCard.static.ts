@@ -1,7 +1,7 @@
 export type ProductType = {
   name: string;
   price: number;
-  stocks: string;
+  stock: string;
   favorites: string[];
   photos: string[];
   createdAt: string;
