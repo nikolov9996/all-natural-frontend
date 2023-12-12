@@ -1,38 +1,34 @@
 import React from 'react'
 import { ProductType } from './ProductCard.static'
-import { Avatar, Card, CardContent, CardHeader, CardMedia, IconButton } from '@mui/material'
-import { red } from '@mui/material/colors'
+import { CardActions, CardContent, CardMedia, Chip, Typography } from '@mui/material'
+import { StyledCard } from './ProductCard.styles'
+import FavoriteIcon from './FavoriteIcon'
 
 const ProductCard: React.FC<{ product: ProductType }> = ({ product }) => {
-  console.log(product.name)
+
   return (
-    <Card sx={{ maxWidth: 340 }}>
-      <CardHeader
-        avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            R
-          </Avatar>
-        }
-        action={
-          <IconButton aria-label="settings">
-            s
-          </IconButton>
-        }
-        title={product.name}
-        subheader={product.createdAt}
-      />
+    <StyledCard sx={{ boxShadow: 1 }}>
+      <FavoriteIcon {...product} />
       <CardMedia
         component="img"
-        height="194"
+        height="120"
         image={product.photos[0]}
-        alt="Paella dish"
+        alt="product "
       />
-      <CardContent>
 
+      <CardContent>
+        {/* style this */}
+        <Typography> {product.name}</Typography>
 
       </CardContent>
-    </Card>
+      <CardActions>
+        {/* style this as well */}
+        <Chip label={product.price} />
+      </CardActions>
+    </StyledCard>
   )
 }
+
+
 
 export default ProductCard
