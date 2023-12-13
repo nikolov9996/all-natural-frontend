@@ -2,15 +2,32 @@ import { Card, IconButton, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import FavIconFilled from "@mui/icons-material/Favorite";
 import FavIconBorder from "@mui/icons-material/FavoriteBorderSharp";
-
 import { green, grey, red } from "@mui/material/colors";
 
-export const StyledCard = styled(Card)({
-  maxWidth: 360,
+export const StyledCard = styled(Card)(({ theme }) => ({
+  // minWidth: 260,
   borderRadius: 0,
-  margin: 20,
   position: "relative",
-});
+
+  ".MuiCardMedia-img": {
+    objectFit: "cover",
+    height: 160,
+  },
+
+  [theme.breakpoints.down("md")]: {
+    ".MuiCardMedia-img": {
+      objectFit: "cover",
+      height: 140,
+    },
+  },
+
+  [theme.breakpoints.down("sm")]: {
+    ".MuiCardMedia-img": {
+      height: 240,
+    },
+    minWidth: "auto",
+  },
+}));
 
 export const FavoriteIconFilled = styled(FavIconFilled)({
   color: red[400],
@@ -71,5 +88,5 @@ export const Stock = styled(Typography)({
 });
 
 export const Content = styled("div")({
-    padding:12
+  padding: 12,
 });

@@ -11,7 +11,6 @@ const ProductCard: React.FC<{ product: ProductType }> = ({ product }) => {
       <FavoriteIcon {...product} />
       <CardMedia
         component="img"
-        height="220"
         image={product.photos[0]}
         alt="product"
       />
