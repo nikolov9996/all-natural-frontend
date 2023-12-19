@@ -9,6 +9,12 @@ export const StyledCard = styled(Card)(({ theme }) => ({
   borderRadius: 0,
   position: "relative",
 
+  '&:hover': {
+    cursor: 'pointer',
+    textDecoration:'underline',
+    backgroundColor:'whitesmoke'
+  },
+
   ".MuiCardMedia-img": {
     objectFit: "cover",
     height: 160,
