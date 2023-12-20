@@ -9,10 +9,10 @@ export const StyledCard = styled(Card)(({ theme }) => ({
   borderRadius: 0,
   position: "relative",
 
-  '&:hover': {
-    cursor: 'pointer',
-    textDecoration:'underline',
-    backgroundColor:'whitesmoke'
+  "&:hover": {
+    cursor: "pointer",
+    textDecoration: "underline",
+    backgroundColor: "whitesmoke",
   },
 
   ".MuiCardMedia-img": {
@@ -47,8 +47,8 @@ export const FavoriteIconBorder = styled(FavIconBorder)({
 });
 
 export const StyledIconButton = styled(IconButton)({
+  boxShadow: "0px 0px 8px 5px rgba(0,0,0,0.1)",
   backgroundColor: "whitesmoke",
-  position: "absolute",
   top: 8,
   right: 8,
   "&:hover": {
