@@ -13,3 +13,21 @@ body {
 * {
   font-family: "OpenSans";
 }
+/*global fix for react slick */
+.slick-prev {
+  /* left: 3% !important; */
+  z-index: 1;
+}
+
+.slick-next {
+  /* right: 3% !important; */
+  z-index: 1;
+}
+
+.slick-slide {
+  outline: none
+}
+
+.slick-slide div {
+  outline: none;
+}

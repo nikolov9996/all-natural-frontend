@@ -1,9 +1,5 @@
 import React, { useState } from "react";
-import {
-  FavoriteIconFilled,
-  FavoriteIconBorder,
-  StyledIconButton,
-} from "./ProductCard.styles";
+import { FavoriteIconFilled, FavoriteIconBorder } from "./ProductCard.styles";
 import { ProductType } from "./ProductCard.static";
 
 const FavoriteIcon: React.FC<ProductType> = (product) => {
