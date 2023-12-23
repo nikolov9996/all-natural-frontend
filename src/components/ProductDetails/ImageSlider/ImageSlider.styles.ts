@@ -17,16 +17,22 @@ export const ArrowRight = styled(Right)(({ theme }) => ({
 }));
 
 export const BigImage = styled("img")({
-  objectFit: "cover",
+  objectFit: "contain",
   backgroundPosition: "center",
   height: 500,
-  width: "auto",
   maxWidth: "calc(100% - 80px)",
   margin: "auto",
 });
 
 export const SmallImage = styled("img")({
-  objectFit: "contain",
-  maxWidth: "calc(100% - 30px)",
-  height: 100,
+  objectFit: "cover",
+  maxWidth: "calc(100% - 3px)",
+  alignSelf:'center',
+  height: 120,
 });
+
+export const SliderBox = styled("div")(({ theme }) => ({
+  paddingLeft: 20,
+  paddingRight: 20,
+  margin: 20,
+}));
