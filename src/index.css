@@ -1,16 +1,23 @@
 @font-face {
-    font-family: "OpenSans";
-    src: local("OpenSans"),
-        url("/fonts/OpenSans-Regular.ttf") format("truetype");
-    font-weight: normal;
+  font-family: "OpenSans";
+  src: local("OpenSans"), url("/fonts/OpenSans-Regular.ttf") format("truetype");
+  font-weight: normal;
 }
 
 body {
-    background-color: #FFFCF4;
-    padding: 0px;
-    margin: 0px;
+  background-color: #fffcf4;
+  padding: 0px;
+  margin: 0px;
 }
 
 * {
-    font-family: 'OpenSans';
+  font-family: "OpenSans";
+}
+
+.slick-slide {
+  outline: none
+}
+
+.slick-slide div {
+  outline: none;
 }

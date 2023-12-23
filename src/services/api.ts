@@ -2,7 +2,8 @@ import axios from "axios";
 import { API_BASE_URL_DEV, API_BASE_URL_PROD } from "./constants";
 
 const api_service = axios.create({
-  baseURL:// change ENV if needed
+  // change ENV if needed
+  baseURL:
     process.env.NODE_ENV === "production"
       ? API_BASE_URL_PROD
       : API_BASE_URL_DEV,
