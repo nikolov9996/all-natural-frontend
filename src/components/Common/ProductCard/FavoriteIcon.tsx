@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FavoriteIconFilled, FavoriteIconBorder } from "./ProductCard.styles";
 import { ProductType } from "./ProductCard.static";
+import { IconButton } from "@mui/material";
 
 const FavoriteIcon: React.FC<ProductType> = (product) => {
   const [liked, setLiked] = useState<boolean>(false);
@@ -16,16 +17,16 @@ const FavoriteIcon: React.FC<ProductType> = (product) => {
 
   if (liked) {
     return (
-      <div onClick={handleClick}>
+      <IconButton onClick={handleClick}>
         <FavoriteIconFilled />
-      </div>
+      </IconButton>
     );
   }
 
   return (
-    <div onClick={handleClick}>
+    <IconButton onClick={handleClick}>
       <FavoriteIconBorder color="error" />
-    </div>
+    </IconButton>
   );
 };
 export default FavoriteIcon;

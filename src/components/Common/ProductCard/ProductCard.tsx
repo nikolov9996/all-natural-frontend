@@ -1,49 +1,28 @@
 import React from "react";
 import { ProductType } from "./ProductCard.static";
-import { CardMedia, Rating } from "@mui/material";
-import {
-  Currency,
-  Price,
-  PriceBox,
-  StyledCard,
-  CardFooter,
-  StyledName,
-  Content,
-} from "./ProductCard.styles";
+import { ImageListItem, ImageListItemBar } from "@mui/material";
+import { StyledCard } from "./ProductCard.styles";
 import FavoriteIcon from "./FavoriteIcon";
-import useProductCard from "./ProductCard.logic";
+import { Link } from "react-router-dom";
 
 const ProductCard: React.FC<{ product: ProductType }> = ({ product }) => {
-  const { navigateToDetails } = useProductCard();
   return (
-    <StyledCard sx={{ boxShadow: 1 }}>
-      <CardMedia
-        onClick={() => navigateToDetails(product._id)}
-        component="img"
-        image={product.photos[0]}
-        alt="product"
-      />
-
-      <Content>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <Rating readOnly value={3} size={"small"} />
-          <FavoriteIcon {...product} />
-        </div>
-
-        <CardFooter onClick={() => navigateToDetails(product._id)}>
-          <StyledName>{product.name}</StyledName>
-          <PriceBox>
-            <Price>{product.price}</Price>
-            <Currency>EUR</Currency>
-          </PriceBox>
-        </CardFooter>
-      </Content>
+    <StyledCard>
+      <Link to={`/product/${product._id}`}>
+        <ImageListItem>
+          <img
+            style={{ height: 200 }}
+            src={`${product.photos[0]}`}
+            alt={product.name}
+            loading="lazy"
+          />
+          <ImageListItemBar
+            title={product.name}
+            actionIcon={<FavoriteIcon {...product} />}
+            // subtitle={item.author}
+          ></ImageListItemBar>
+        </ImageListItem>
+      </Link>
     </StyledCard>
   );
 };

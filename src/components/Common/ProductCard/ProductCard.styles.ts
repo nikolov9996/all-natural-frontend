@@ -2,11 +2,9 @@ import { Card, IconButton, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import FavIconFilled from "@mui/icons-material/Favorite";
 import FavIconBorder from "@mui/icons-material/FavoriteBorderSharp";
-import { green, grey, red } from "@mui/material/colors";
+import { green, red } from "@mui/material/colors";
 
-export const StyledCard = styled(Card)(({ theme }) => ({
-  // minWidth: 260,
-  borderRadius: 0,
+export const StyledCard = styled(Card)({
   position: "relative",
 
   "&:hover": {
@@ -14,33 +12,14 @@ export const StyledCard = styled(Card)(({ theme }) => ({
     textDecoration: "underline",
     backgroundColor: "whitesmoke",
   },
-
-  ".MuiCardMedia-img": {
-    objectFit: "cover",
-    height: 160,
-  },
-
-  [theme.breakpoints.down("md")]: {
-    ".MuiCardMedia-img": {
-      objectFit: "cover",
-      height: 140,
-    },
-  },
-
-  [theme.breakpoints.down("sm")]: {
-    ".MuiCardMedia-img": {
-      height: 240,
-    },
-    minWidth: "auto",
-  },
-}));
+});
 
 export const FavoriteIconFilled = styled(FavIconFilled)({
   color: red[400],
 });
 
 export const FavoriteIconBorder = styled(FavIconBorder)({
-  color: "black",
+  color: "whitesmoke",
   "&:hover": {
     color: red[400],
   },
@@ -57,36 +36,6 @@ export const StyledIconButton = styled(IconButton)({
   },
 });
 
-export const StyledName = styled(Typography)({
-  textOverflow: "ellipsis",
-  whiteSpace: "nowrap",
-  overflow: "hidden",
-  fontWeight: 600,
-});
-
-export const CardFooter = styled("div")({
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
-});
-
-export const PriceBox = styled("div")({
-  display: "flex",
-  alignItems: "baseline",
-});
-
-export const Price = styled(Typography)({
-  fontWeight: 600,
-  color: grey[700],
-});
-
-export const Currency = styled("span")({
-  fontSize: 12,
-  color: grey[700],
-  fontWeight: 600,
-  paddingLeft: 4,
-});
-
 export const Stock = styled(Typography)({
   fontSize: 15,
   fontWeight: 600,
@@ -95,4 +44,8 @@ export const Stock = styled(Typography)({
 
 export const Content = styled("div")({
   padding: 12,
+});
+
+export const StyledImg = styled("img")({
+  height: 200,
 });

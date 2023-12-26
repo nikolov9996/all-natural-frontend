@@ -23,9 +23,9 @@ const Home: React.FC = () => {
 
     return (
         <>
-            <Grid container spacing={2} pt={1} pb={1}>
-                {data.Products.map((prod: ProductType) => {
-                    return <Grid md={4} sm={6} xs={12} lg={3} xl={2} item key={prod._id}>
+            <Grid container spacing={1} p={1}>
+                {data?.Products.map((prod: ProductType) => {
+                    return <Grid md={4} sm={6} xs={6} lg={3} xl={2} item key={prod._id}>
                         <ProductCard product={prod} />
                     </Grid>
                 })}
