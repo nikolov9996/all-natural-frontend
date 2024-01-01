@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FavoriteIconFilled, FavoriteIconBorder } from "./ProductCard.styles";
-import { ProductType } from "./ProductCard.static";
 import { IconButton } from "@mui/material";
+import { ProductType } from "~/static/types";
 
 const FavoriteIcon: React.FC<ProductType> = (product) => {
   const [liked, setLiked] = useState<boolean>(false);

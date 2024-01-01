@@ -5,10 +5,12 @@ import {
   ArrowLeft,
   ArrowRight,
   BigImage,
+  MainContainer,
   SliderBox,
   SmallImage,
 } from "./ImageSlider.styles";
 import { Fade } from "@mui/material";
+import { ProductType } from "~/static/types";
 
 const settings: Settings = {
   arrows: true,
@@ -16,22 +18,15 @@ const settings: Settings = {
   nextArrow: <ArrowRight />,
 };
 
-const images: string[] = [
-  "https://res.cloudinary.com/dky3tezac/image/upload/v1703168226/vqcolsypaovjkbtj7hpx.jpg",
-  "https://res.cloudinary.com/dky3tezac/image/upload/v1703168226/n13paavpltdc1wsxxflp.jpg",
-  "https://res.cloudinary.com/dky3tezac/image/upload/v1703168226/gmkysq7wji1uivilanmn.jpg",
-  "https://res.cloudinary.com/dky3tezac/image/upload/v1703168226/riywvyq4i8bfqrcqqi8i.jpg",
-];
-
-const ImageSlider: React.FC = () => {
-  const [selectedImg, setSelectedImg] = useState<string>(images[0]);
+const ImageSlider: React.FC<ProductType> = (product) => {
+  const [selectedImg, setSelectedImg] = useState<string>(product.photos[0]);
 
   const isSelectedImage = (selected: boolean) => {
     return selected ? {} : { opacity: 0.6 };
   };
 
   return (
-    <div>
+    <MainContainer>
       <div style={{ height: 500, display: "flex", alignItems: "center" }}>
         <FadingImage newSrc={selectedImg} />
       </div>
@@ -42,20 +37,21 @@ const ImageSlider: React.FC = () => {
           // focusOnSelect={true}
           {...settings}
         >
-          {images.map((img, i) => {
-            const selected: boolean = selectedImg === img;
-            return (
-              <SmallImage
-                sx={isSelectedImage(selected)}
-                onClick={() => setSelectedImg(img)}
-                key={i}
-                src={img}
-              />
-            );
-          })}
+          {product.photos.length > 1 &&
+            product.photos.map((img, i) => {
+              const selected: boolean = selectedImg === img;
+              return (
+                <SmallImage
+                  sx={isSelectedImage(selected)}
+                  onClick={() => setSelectedImg(img)}
+                  key={i}
+                  src={img}
+                />
+              );
+            })}
         </Slider>
       </SliderBox>
-    </div>
+    </MainContainer>
   );
 
   function FadingImage({ newSrc }: { newSrc: string }) {

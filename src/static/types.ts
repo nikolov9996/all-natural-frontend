@@ -6,5 +6,6 @@ export type ProductType = {
   photos: string[];
   createdAt: string;
   updatedAt: string;
+  description: string;
   _id: string;
 };

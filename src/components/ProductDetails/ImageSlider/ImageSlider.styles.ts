@@ -27,12 +27,17 @@ export const BigImage = styled("img")({
 export const SmallImage = styled("img")({
   objectFit: "cover",
   maxWidth: "calc(100% - 3px)",
-  alignSelf:'center',
+  alignSelf: "center",
   height: 120,
+  cursor: "pointer",
 });
 
-export const SliderBox = styled("div")(({ theme }) => ({
+export const SliderBox = styled("div")({
   paddingLeft: 20,
   paddingRight: 20,
   margin: 20,
-}));
+});
+
+export const MainContainer = styled("div")({
+  marginTop: 10,
+});
