@@ -5,6 +5,7 @@ import {
   ArrowLeft,
   ArrowRight,
   BigImage,
+  FadingImageBox,
   MainContainer,
   SliderBox,
   SmallImage,
@@ -27,9 +28,9 @@ const ImageSlider: React.FC<ProductType> = (product) => {
 
   return (
     <MainContainer>
-      <div style={{ height: 500, display: "flex", alignItems: "center" }}>
+      <FadingImageBox>
         <FadingImage newSrc={selectedImg} />
-      </div>
+      </FadingImageBox>
       <SliderBox>
         <Slider
           slidesToShow={3}

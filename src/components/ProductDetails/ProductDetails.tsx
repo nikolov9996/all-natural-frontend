@@ -1,6 +1,14 @@
-import { Grid } from "@mui/material";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Grid,
+  Typography,
+} from "@mui/material";
 import ImageSlider from "./ImageSlider/ImageSlider";
 import ProductInfo from "./ProductInfo/ProductInfo";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import CommentsIcon from "@mui/icons-material/ThreeP";
 
 const product = {
   _id: "6579ebbe03f2a8c8fbfd0ad9",
@@ -42,14 +50,33 @@ const product = {
 const ProductDetails: React.FC = () => {
   return (
     <Grid container>
-      <Grid xs={12} sm={12} md={6} lg={8} xl={8} item>
+      <Grid xs={12} sm={12} md={6} lg={4} xl={4} item>
         <ImageSlider {...product} />
       </Grid>
-      <Grid xs={12} sm={12} md={6} lg={4} xl={4} item>
+      <Grid xs={12} sm={12} md={6} lg={8} xl={8} item>
         <ProductInfo {...product} />
       </Grid>
+
       <Grid xs={12} sm={12} md={12} lg={12} xl={12} item>
         map
+      </Grid>
+
+      <Grid xs={12} sm={12} md={12} lg={12} xl={12} item>
+        everything else will be here under the map
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+          >
+            <Typography>
+              Comments <CommentsIcon />
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography>Comments will be here</Typography>
+          </AccordionDetails>
+        </Accordion>
       </Grid>
     </Grid>
   );

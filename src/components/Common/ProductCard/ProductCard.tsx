@@ -1,9 +1,9 @@
 import React from "react";
-import { ProductType } from "./ProductCard.static";
 import { ImageListItem, ImageListItemBar } from "@mui/material";
 import { StyledCard } from "./ProductCard.styles";
 import FavoriteIcon from "./FavoriteIcon";
 import { Link } from "react-router-dom";
+import { ProductType } from "~/static/types";
 
 const ProductCard: React.FC<{ product: ProductType }> = ({ product }) => {
   return (

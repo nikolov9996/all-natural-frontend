@@ -16,21 +16,30 @@ export const ArrowRight = styled(Right)(({ theme }) => ({
   fill: theme.palette.grey[500],
 }));
 
-export const BigImage = styled("img")({
+export const BigImage = styled("img")(({ theme }) => ({
   objectFit: "contain",
   backgroundPosition: "center",
   height: 500,
   maxWidth: "calc(100% - 80px)",
   margin: "auto",
-});
 
-export const SmallImage = styled("img")({
+  [theme.breakpoints.down("md")]: {
+    maxWidth: "calc(100% - 10px)",
+    height: 300,
+  },
+}));
+
+export const SmallImage = styled("img")(({ theme }) => ({
   objectFit: "cover",
   maxWidth: "calc(100% - 3px)",
   alignSelf: "center",
   height: 120,
   cursor: "pointer",
-});
+
+  [theme.breakpoints.down("md")]: {
+    height: 80,
+  },
+}));
 
 export const SliderBox = styled("div")({
   paddingLeft: 20,
@@ -39,5 +48,15 @@ export const SliderBox = styled("div")({
 });
 
 export const MainContainer = styled("div")({
-  marginTop: 10,
+  paddingTop: 10,
 });
+
+export const FadingImageBox = styled("div")(({ theme }) => ({
+  height: 500,
+  display: "flex",
+  alignItems: "center",
+
+  [theme.breakpoints.down("md")]: {
+    height: 300,
+  },
+}));
