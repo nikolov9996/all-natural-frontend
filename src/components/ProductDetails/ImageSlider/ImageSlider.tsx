@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Slider, { Settings } from "react-slick";
+import Slider, { Settings, CustomArrowProps } from "react-slick";
 
 import {
   ArrowLeft,
@@ -15,8 +15,8 @@ import { ProductType } from "~/static/types";
 
 const settings: Settings = {
   arrows: true,
-  prevArrow: <ArrowLeft />,
-  nextArrow: <ArrowRight />,
+  prevArrow: <LeftArrowCustom />,
+  nextArrow: <RightArrowCustom />,
 };
 
 const ImageSlider: React.FC<ProductType> = (product) => {
@@ -32,12 +32,7 @@ const ImageSlider: React.FC<ProductType> = (product) => {
         <FadingImage newSrc={selectedImg} />
       </FadingImageBox>
       <SliderBox>
-        <Slider
-          slidesToShow={3}
-          swipeToSlide={false}
-          // focusOnSelect={true}
-          {...settings}
-        >
+        <Slider slidesToShow={3} swipeToSlide={false} {...settings}>
           {product.photos.length > 1 &&
             product.photos.map((img, i) => {
               const selected: boolean = selectedImg === img;
@@ -75,5 +70,44 @@ const ImageSlider: React.FC<ProductType> = (product) => {
     );
   }
 };
+// this clears console error that appear when using custom arrows
+function LeftArrowCustom({
+  currentSlide,
+  slideCount,
+  ...props
+}: CustomArrowProps) {
+  return (
+    <ArrowLeft
+      className={
+        "slick-prev slick-arrow" +
+        (currentSlide === 0 || !slideCount ? " slick-disabled" : "")
+      }
+      aria-hidden="true"
+      aria-disabled={currentSlide === 0 ? true : false}
+      {...props}
+    />
+  );
+}
 
+function RightArrowCustom({
+  currentSlide,
+  slideCount,
+  ...props
+}: CustomArrowProps) {
+  if (!slideCount) {
+    slideCount = 0;
+  }
+
+  return (
+    <ArrowRight
+      className={
+        "slick-next slick-arrow" +
+        (currentSlide === slideCount - 1 ? " slick-disabled" : "")
+      }
+      aria-hidden="true"
+      aria-disabled={currentSlide === slideCount - 1 ? true : false}
+      {...props}
+    />
+  );
+}
 export default ImageSlider;

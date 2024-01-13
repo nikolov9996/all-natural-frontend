@@ -1,7 +1,6 @@
-import { Card } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
-export const MainContainer = styled(Card)({
+export const MainContainer = styled('div')({
   backgroundColor: "transparent",
   padding: 12,
   display: "flex",
