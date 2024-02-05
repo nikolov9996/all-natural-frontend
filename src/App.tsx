@@ -16,9 +16,7 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={mainTheme}>
           <StyledEngineProvider injectFirst>
-            <Layout>
-              <AppRouter />
-            </Layout>
+            <AppRouter />
           </StyledEngineProvider>
         </ThemeProvider>
       </QueryClientProvider>

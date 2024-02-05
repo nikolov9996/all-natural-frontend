@@ -12,8 +12,11 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import MessageIcon from "@mui/icons-material/Message";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "~/static/contants";
 
 const Drawer: React.FC = () => {
+  const navigate = useNavigate();
   const [state, setState] = useState<boolean>(false);
 
   const toggleDrawer =
@@ -39,11 +42,11 @@ const Drawer: React.FC = () => {
     >
       <List>
         <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton onClick={() => navigate(ROUTES.PROFILE)}>
             <ListItemIcon>
               <MessageIcon />
             </ListItemIcon>
-            <ListItemText primary={"text"} />
+            <ListItemText primary={"Profile"} />
           </ListItemButton>
         </ListItem>
       </List>
