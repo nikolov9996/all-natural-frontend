@@ -17,6 +17,7 @@ const settings: Settings = {
   arrows: true,
   prevArrow: <LeftArrowCustom />,
   nextArrow: <RightArrowCustom />,
+  infinite: false,
 };
 
 const ImageSlider: React.FC<ProductType> = (product) => {

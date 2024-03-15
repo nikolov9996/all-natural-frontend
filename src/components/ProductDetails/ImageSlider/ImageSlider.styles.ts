@@ -37,7 +37,7 @@ export const SmallImage = styled("img")(({ theme }) => ({
   cursor: "pointer",
 
   [theme.breakpoints.down("md")]: {
-    height: 80,
+    height: 100,
   },
 }));
 
