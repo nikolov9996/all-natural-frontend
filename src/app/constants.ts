@@ -1,0 +1,1 @@
+export const LAYOUT_REDUCER_NAME = 'layout-reducer'

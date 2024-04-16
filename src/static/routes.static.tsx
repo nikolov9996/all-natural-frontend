@@ -1,10 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
-import Home from "~/components/Home";
-import ProductDetails from "~/components/ProductDetails/ProductDetails";
-import Profile from "~/components/Profile/Profile";
+import Home from "~/features/Home";
+import ProductDetails from "~/features/ProductDetails/ProductDetails";
+import Profile from "~/features/Profile/Profile";
 import { ROUTES } from "./contants";
 import { ReactNode } from "react";
-import Layout from "~/components/Layout/Layout";
+import Layout from "~/features/Layout/Layout";
 
 type LayoutProps = {
   component: ReactNode;
