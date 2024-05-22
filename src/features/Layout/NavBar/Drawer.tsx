@@ -61,6 +61,17 @@ const Drawer: React.FC = () => {
           </ListItemButton>
         </ListItem>
       </List>
+      <List>
+        <ListItem disablePadding>
+          {/* TODO show this only on admin profile */}
+          <ListItemButton onClick={() => navigate(ROUTES.SENSOR)}>
+            <ListItemIcon>
+              <MessageIcon />
+            </ListItemIcon>
+            <ListItemText primary={"Sensor"} />
+          </ListItemButton>
+        </ListItem>
+      </List>
     </Box>
   );
 

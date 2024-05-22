@@ -1,4 +1,4 @@
-import { ProductType } from "~/static/types";
+import { ProductType, SensorType } from "~/static/types";
 
 export interface ProductsResponse {
   Products: ProductType[];
@@ -6,4 +6,8 @@ export interface ProductsResponse {
 
 export interface ProductDetailsResponse {
   Product: ProductType;
+}
+
+export interface SensorResponse {
+  Sensor: SensorType[];
 }

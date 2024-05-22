@@ -9,3 +9,9 @@ export type ProductType = {
   description: string;
   _id: string;
 };
+
+export type SensorType = {
+  temperature: string;
+  humidity: string;
+  time: string;
+};

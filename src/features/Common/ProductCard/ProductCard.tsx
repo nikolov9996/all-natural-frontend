@@ -11,7 +11,6 @@ import FavoriteIcon from "./FavoriteIcon";
 import { ProductType } from "~/static/types";
 
 const ProductCard: React.FC<{ product: ProductType }> = ({ product }) => {
-
   return (
     <StyledLink to={`/product/${product._id}`}>
       <StyledCard>

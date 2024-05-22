@@ -2,21 +2,17 @@ import React from "react";
 import { ProductType } from "~/static/types";
 import { MainContainer } from "./ProductInfo.style";
 import { Chip, Typography } from "@mui/material";
-import { useParams } from "react-router-dom";
 
-const ProductInfo: React.FC<ProductType> = () => {
-  const { id } = useParams();
-
-
+const ProductInfo: React.FC<ProductType> = (product) => {
   return (
     <MainContainer>
       <Typography sx={{ fontWeight: "700" }} variant="h5">
-        {"data?.Product.name"}
+        {product.name}
       </Typography>
-      <Typography>{"data?.Product.price"}</Typography>
-      <Chip label={"data?.Product.stock"} />
+      <Typography>{product.price}</Typography>
+      <Chip label={product.stock} />
       <Typography variant="subtitle2" paragraph={true}>
-        {"data?.Product.description"}
+        {product.description}
       </Typography>
     </MainContainer>
   );
