@@ -1,19 +1,21 @@
-import {
-  Area,
-  AreaChart,
-  CartesianGrid,
-  ResponsiveContainer,
-  XAxis,
-  YAxis,
-  Tooltip,
-} from "recharts";
+import React, { useState } from "react";
 import useSensor from "./Sensor.logic";
+import { Grid } from "@mui/material";
+import { StyledSensorContainer, StyledStaticDatePicker } from "./Sensor.style";
+import SensorChartHumidity from "./SensorChartHumidity";
+import SensorChartTemperature from "./SensorChartTemperature";
 import moment from "moment";
 
-const testDate = new Date("2024-05-20").toISOString();
+const Sensor: React.FC = () => {
+  const [date, setDate] = useState(new Date().toISOString());
 
-const Sensor = () => {
-  const { error, isLoading, sensorData } = useSensor({ date: testDate });
+  const formatDate = (d: any) => {
+    const dateString = moment(d).toDate().toISOString();
+    setDate(dateString);
+  };
+
+  const { error, isLoading, sensorData } = useSensor({ date: date });
+
   if (isLoading) {
     return <p>Loading...</p>;
   }
@@ -23,43 +25,36 @@ const Sensor = () => {
   }
 
   return (
-    <div>
-      <ResponsiveContainer width={"100%"} height={500}>
-        <AreaChart
-          data={sensorData}
-          margin={{
-            top: 10,
-            right: 30,
-            left: 0,
-            bottom: 0,
-          }}
-          width={700}
-          height={500}
-        >
-          <CartesianGrid strokeDasharray="2 2" />
-          <XAxis
-            tickFormatter={(date) => moment(date).format("HH:mm ")}
-            dataKey="time"
+    <StyledSensorContainer>
+      <Grid justifyContent="space-around" container>
+        <Grid item md={12} lg={8}>
+          <div
+            style={{
+              overflow: "auto",
+              minWidth: 600,
+              maxWidth: "90vw",
+              height: 200,
+            }}
+          >
+            <SensorChartHumidity sensorData={sensorData} />
+          </div>
+          <div style={{ height: 200 }}>
+            <SensorChartTemperature sensorData={sensorData} />
+          </div>
+        </Grid>
+        <Grid item md={12} lg={4}>
+          <StyledStaticDatePicker
+            onChange={formatDate}
+            value={moment(date)}
+            slots={{
+              toolbar: () => null,
+              actionBar: () => null,
+            }}
+            disableFuture
           />
-          <YAxis />
-          <Tooltip labelFormatter={(date) => moment(date).format("HH:mm ")} />
-          <Area
-            type="monotone"
-            dataKey="temperature"
-            stackId="1"
-            stroke="#82ca9d"
-            fill="#82ca9d"
-          />
-          <Area
-            type="monotone"
-            dataKey="humidity"
-            stackId="1"
-            stroke="#ffc658"
-            fill="#ffc658"
-          />
-        </AreaChart>
-      </ResponsiveContainer>
-    </div>
+        </Grid>
+      </Grid>
+    </StyledSensorContainer>
   );
 };
 
