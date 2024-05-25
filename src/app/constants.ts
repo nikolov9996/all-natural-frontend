@@ -1,1 +1,2 @@
-export const LAYOUT_REDUCER_NAME = 'layout-reducer'
+export const LAYOUT_REDUCER_NAME = "layout-reducer";
+export const SENSOR_REDUCER_NAME = "sensor-reducer";

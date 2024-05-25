@@ -1,5 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { LAYOUT_REDUCER_NAME } from "~/app/constants";
 import type { RootState } from "~/app/store";
 

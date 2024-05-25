@@ -1,5 +1,5 @@
 import React from "react";
-import { ImageListItem, ImageListItemBar } from "@mui/material";
+import { ImageListItem } from "@mui/material";
 import {
   StyledCard,
   StyledLink,

@@ -36,11 +36,11 @@ export const StyledLink = styled(Link)(({ theme }) => ({
   color: theme.palette.common.black,
 }));
 
-export const StyledPrice = styled("span")(({ theme }) => ({
+export const StyledPrice = styled("span")({
   color: green[600],
   fontWeight: 700,
   fontSize: 14,
-}));
+});
 
 export const FavoriteIconFilled = styled(FavIconFilled)({
   color: red[400],

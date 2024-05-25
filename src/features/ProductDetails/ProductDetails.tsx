@@ -14,13 +14,12 @@ import useProductDetails from "./ProductDetails.logic";
 
 const ProductDetails: React.FC = () => {
   const { id } = useParams();
+  const { product, isLoading, error } = useProductDetails({ id: id || "" });
+
   if (!id) {
     return <p>not found</p>;
     // TODO add not found page
   }
-
-  const { product, isLoading, error } = useProductDetails({ id });
-
   if (error) {
     return <p>Error</p>;
     // TODO add error page or not found

@@ -1,5 +1,4 @@
-import { blue } from "@mui/material/colors";
-import { ColorPartial } from "@mui/material/styles/createPalette";
+import { red } from "@mui/material/colors";
 import moment from "moment";
 import React from "react";
 import {
@@ -18,10 +17,10 @@ type Props = {
   sensorData?: SensorType[];
 };
 
-const SensorChartHumidity: React.FC<Props> = ({ sensorData }) => {
+const SensorChartTemperature: React.FC<Props> = ({ sensorData }) => {
   const formatDate = (date: string) => moment(date).format("HH:mm");
   return (
-    <ResponsiveContainer>
+    <ResponsiveContainer height={200}>
       <AreaChart
         data={sensorData}
         margin={{
@@ -31,20 +30,19 @@ const SensorChartHumidity: React.FC<Props> = ({ sensorData }) => {
           bottom: 0,
         }}
       >
-        <CartesianGrid strokeDasharray="1 1" />
-        <XAxis tickFormatter={formatDate} dataKey="time" />
-        <YAxis
-          tickFormatter={(val) => `${val} %`}
-          type="number"
-          dataKey="humidity"
+        <CartesianGrid strokeDasharray="0 0" />
+        <XAxis
+          tickFormatter={(date: string) => moment(date).format("HH:mm")}
+          dataKey="time"
         />
+        <YAxis tickFormatter={(val) => `${val} °`} dataKey="temperature" />
         <Tooltip labelFormatter={(date) => `Time: ${formatDate(date)}`} />
         <Area
           type="monotone"
-          dataKey="humidity"
+          dataKey="temperature"
           stackId="1"
-          stroke={blue[500]}
-          fill={blue[100]}
+          stroke={red[500]}
+          fill={red[100]}
         />
         <Legend />
       </AreaChart>
@@ -52,4 +50,4 @@ const SensorChartHumidity: React.FC<Props> = ({ sensorData }) => {
   );
 };
 
-export default SensorChartHumidity;
+export default SensorChartTemperature;

@@ -11,3 +11,8 @@ export interface ProductDetailsResponse {
 export interface SensorResponse {
   Sensor: SensorType[];
 }
+
+export type SensorDataPaginated = {
+  count: number;
+  page: number;
+};
