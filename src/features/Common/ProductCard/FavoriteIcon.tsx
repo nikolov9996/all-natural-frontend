@@ -3,7 +3,7 @@ import { FavoriteIconFilled, FavoriteIconBorder } from "./ProductCard.styles";
 import { IconButton } from "@mui/material";
 import { ProductType } from "~/static/types";
 
-const FavoriteIcon: React.FC<ProductType> = (product) => {
+const FavoriteIcon: React.FC<ProductType> = () => {
   const [liked, setLiked] = useState<boolean>(false);
   // temp solution before saving in localStorage
   // or cookie before sync with account
