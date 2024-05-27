@@ -23,7 +23,6 @@ const SensorPagination: React.FC<Props> = ({
 }) => {
   return (
     <StyledPaginationBox>
-      {page} {count}
       <Paging />
       <StyledSelect
         value={count}
