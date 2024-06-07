@@ -16,8 +16,8 @@ const ProductCard: React.FC<{ product: ProductType }> = ({ product }) => {
       <StyledCard>
         <ImageListItem>
           <img
-            style={{ height: 200 }}
-            src={`${product.photos[0]}`}
+            style={{ height: 160 }}
+            src={`${product?.photos[0]}`}
             alt={product.name}
             loading="lazy"
           />

@@ -10,6 +10,7 @@ const Home: React.FC = () => {
   const theme = useTheme();
 
   const isSmall = useMediaQuery(theme.breakpoints.only("xs"));
+  const isLarge = useMediaQuery(theme.breakpoints.only("lg"));
 
   if (isLoading) {
     // loading here
@@ -30,7 +31,13 @@ const Home: React.FC = () => {
 
   return (
     <>
-      <Grid container spacing={isSmall ? 1 : 3} p={1}>
+      <Grid
+        container
+        spacing={isSmall ? 1 : 3}
+        pl={isLarge ? 0 : 1}
+        pr={isLarge ? 0 : 1}
+        pt={1}
+      >
         {data?.Products.map((prod: ProductType) => {
           return (
             <Grid md={3} sm={4} xs={6} lg={2} xl={2} item key={prod._id}>
