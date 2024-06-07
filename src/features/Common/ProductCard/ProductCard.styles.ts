@@ -21,15 +21,12 @@ export const StyledProductInfo = styled("div")({
   alignItems: "center",
 });
 
-export const StyledProductName = styled("p")(({ theme }) => ({
+export const StyledProductName = styled("p")({
   marginTop: 10,
   marginBottom: 0,
-
   fontWeight: 700,
-  [theme.breakpoints.down("md")]: {
-    height: 50,
-  },
-}));
+  height: 50,
+});
 
 export const StyledLink = styled(Link)(({ theme }) => ({
   textDecoration: "none",
@@ -72,8 +69,4 @@ export const Stock = styled(Typography)({
 
 export const Content = styled("div")({
   padding: 12,
-});
-
-export const StyledImg = styled("img")({
-  height: 200,
 });
