@@ -1,16 +1,22 @@
-import { API_BASE_URL_DEV, API_BASE_URL_PROD } from "./constants";
 import { ProductDetailsResponse, ProductsResponse } from "./types";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { buildQueryString } from "./utils";
+import { apiUrl, buildQueryString } from "./utils";
+import { RootState } from "~/app/store";
 
 export const PRODUCTS_API_REDUCER_PATH = "products-api";
 
-const apiUrl =
-  import.meta.env.MODE === "development" ? API_BASE_URL_DEV : API_BASE_URL_PROD;
-
 export const productsApi = createApi({
   reducerPath: PRODUCTS_API_REDUCER_PATH,
-  baseQuery: fetchBaseQuery({ baseUrl: apiUrl }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: apiUrl,
+    prepareHeaders: (headers, { getState }) => {
+      const token = (getState() as RootState)["auth-reducer"].token;
+      if (token) {
+        headers.set("authorization", `Bearer ${token}`);
+      }
+      return headers;
+    },
+  }),
   keepUnusedDataFor: 600, // save cached data for 10 min
   endpoints: (builder) => ({
     getProducts: builder.query<ProductsResponse, string>({

@@ -8,6 +8,8 @@ import {
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { SENSOR_API_REDUCER_PATH, sensorApi } from "~/services/sensorSlice";
 import sensorSlice from "~/features/Sensor/SensorSlice";
+import authSlice, { AUTH_REDUCER_NAME } from "~/features/Auth/authSlice";
+import { authSliceAPI } from "~/services/authSliceAPI";
 // ...
 
 export const store = configureStore({
@@ -15,12 +17,15 @@ export const store = configureStore({
     [LAYOUT_REDUCER_NAME]: LayoutSlice,
     [PRODUCTS_API_REDUCER_PATH]: productsApi.reducer,
     [SENSOR_API_REDUCER_PATH]: sensorApi.reducer,
+    [authSliceAPI.reducerPath]: authSliceAPI.reducer,
     [SENSOR_REDUCER_NAME]: sensorSlice,
+    [AUTH_REDUCER_NAME]: authSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
       .concat(productsApi.middleware)
-      .concat(sensorApi.middleware),
+      .concat(sensorApi.middleware)
+      .concat(authSliceAPI.middleware),
 });
 
 setupListeners(store.dispatch);
