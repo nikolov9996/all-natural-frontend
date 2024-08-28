@@ -1,5 +1,5 @@
 import React from "react";
-import ProductCard from "../Common/ProductCard/ProductCard";
+import ProductCard from "../Common/ProductCard";
 
 import { Grid, Skeleton, useTheme, useMediaQuery } from "@mui/material";
 import { ProductType } from "~/static/types";
@@ -16,7 +16,7 @@ const Home: React.FC = () => {
     // loading here
     return (
       <Grid container spacing={1}>
-        {Array(20)
+        {Array(12)
           .fill(1)
           .map((_, i) => {
             return (

@@ -5,8 +5,8 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import ImageSlider from "./ImageSlider/ImageSlider";
-import ProductInfo from "./ProductInfo/ProductInfo";
+import ImageSlider from "./ImageSlider";
+import ProductInfo from "./ProductInfo";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import CommentsIcon from "@mui/icons-material/ThreeP";
 import { useParams } from "react-router-dom";

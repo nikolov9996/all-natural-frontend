@@ -11,7 +11,7 @@ const apiUrl =
 export const sensorApi = createApi({
   reducerPath: SENSOR_API_REDUCER_PATH,
   baseQuery: fetchBaseQuery({ baseUrl: apiUrl }),
-  keepUnusedDataFor: 60, // save cached data for 10 min
+  keepUnusedDataFor: 60, // save cached data for 1 min
   endpoints: (builder) => ({
     getSensorRecordsForDay: builder.query<SensorResponse, string>({
       query: (date) => {

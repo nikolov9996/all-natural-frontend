@@ -53,7 +53,7 @@ const Drawer: React.FC = () => {
       <Divider />
       <List>
         <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton onClick={() => navigate(ROUTES.MESSAGES)}>
             <ListItemIcon>
               <MessageIcon />
             </ListItemIcon>
