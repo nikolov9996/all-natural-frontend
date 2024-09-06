@@ -1,16 +1,22 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { API_BASE_URL_DEV, API_BASE_URL_PROD } from "./constants";
 import { SensorDataPaginated, SensorResponse } from "./types";
-import { buildQueryString, formatDateForRequest } from "./utils";
+import { apiUrl, buildQueryString, formatDateForRequest } from "./utils";
+import { RootState } from "~/app/store";
 
 export const SENSOR_API_REDUCER_PATH = "sensor-api";
 
-const apiUrl =
-  import.meta.env.MODE === "development" ? API_BASE_URL_DEV : API_BASE_URL_PROD;
-
 export const sensorApi = createApi({
   reducerPath: SENSOR_API_REDUCER_PATH,
-  baseQuery: fetchBaseQuery({ baseUrl: apiUrl }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: apiUrl,
+    prepareHeaders: (headers, { getState }) => {
+      const token = (getState() as RootState)["auth-reducer"].token;
+      if (token) {
+        headers.set("authorization", `Bearer ${token}`);
+      }
+      return headers;
+    },
+  }),
   keepUnusedDataFor: 60, // save cached data for 1 min
   endpoints: (builder) => ({
     getSensorRecordsForDay: builder.query<SensorResponse, string>({

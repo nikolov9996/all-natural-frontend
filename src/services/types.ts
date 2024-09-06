@@ -16,3 +16,13 @@ export type SensorDataPaginated = {
   count: number;
   page: number;
 };
+
+export type User = {
+  username: string;
+  email: string;
+  avatar: string;
+  isSeller: boolean;
+  favorites: ProductType[];
+  comments: any[];
+  _id?: any;
+};

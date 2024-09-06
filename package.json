@@ -24,10 +24,13 @@
     "path": "^0.12.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.53.0",
     "react-redux": "^9.1.1",
     "react-router-dom": "^6.20.1",
     "react-slick": "^0.29.0",
     "recharts": "^2.12.7",
+    "redux": "^5.0.1",
+    "redux-persist": "^6.0.0",
     "slick-carousel": "^1.8.1",
     "yarn": "^1.22.21"
   },
