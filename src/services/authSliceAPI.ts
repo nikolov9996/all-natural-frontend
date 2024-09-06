@@ -24,6 +24,7 @@ export interface LoginRequest {
 }
 
 export const authSliceAPI = createApi({
+  reducerPath:"auth-api",
   baseQuery: fetchBaseQuery({
     baseUrl: apiUrl,
     prepareHeaders: (headers, { getState }) => {
