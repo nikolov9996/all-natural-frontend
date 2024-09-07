@@ -1,0 +1,21 @@
+name: CI
+on:
+  push:
+    branches:
+      - "*"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: "yarn"
+      - run: yarn install
+        name: install dependencies
+      - run: yarn lint
+        name: run lint
+      - run: yarn build
+        name: run build [to be 100% sure the build will pass deployment]
