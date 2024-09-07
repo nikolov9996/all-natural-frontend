@@ -10,7 +10,7 @@ import {
 import SensorChartHumidity from "./components/SensorChartHumidity";
 import SensorChartTemperature from "./components/SensorChartTemperature";
 import moment, { Moment } from "moment";
-import { useGetSensorRecordsPaginatedQuery } from "~/services/sensorSlice";
+import { useGetSensorRecordsPaginatedQuery } from "~/services/APISlice";
 import SensorPagination from "./components/SensorPagination";
 
 const Sensor: React.FC = () => {

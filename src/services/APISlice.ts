@@ -1,12 +1,19 @@
+import {
+  LoginRequest,
+  ProductDetailsResponse,
+  ProductsResponse,
+  SensorDataPaginated,
+  SensorResponse,
+  UserResponse,
+} from "./types";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { SensorDataPaginated, SensorResponse } from "./types";
 import { apiUrl, buildQueryString, formatDateForRequest } from "./utils";
 import { RootState } from "~/app/store";
 
-export const SENSOR_API_REDUCER_PATH = "sensor-api";
+export const PRODUCTS_API_REDUCER_PATH = "products-api";
 
-export const sensorApi = createApi({
-  reducerPath: SENSOR_API_REDUCER_PATH,
+export const APISlice = createApi({
+  reducerPath: PRODUCTS_API_REDUCER_PATH,
   baseQuery: fetchBaseQuery({
     baseUrl: apiUrl,
     prepareHeaders: (headers, { getState }) => {
@@ -17,8 +24,17 @@ export const sensorApi = createApi({
       return headers;
     },
   }),
-  keepUnusedDataFor: 60, // save cached data for 1 min
+  keepUnusedDataFor: 600, // save cached data for 10 min
   endpoints: (builder) => ({
+    getProducts: builder.query<ProductsResponse, string>({
+      query: (count: string) => {
+        const qString = buildQueryString({ count });
+        return `product${qString}`;
+      },
+    }),
+    getProductById: builder.query<ProductDetailsResponse, string>({
+      query: (id: string) => `product/${id}`,
+    }),
     getSensorRecordsForDay: builder.query<SensorResponse, string>({
       query: (date) => {
         const qString = buildQueryString({ date: formatDateForRequest(date) });
@@ -34,10 +50,24 @@ export const sensorApi = createApi({
         return `sensor${qString}`;
       },
     }),
+    login: builder.mutation<UserResponse, LoginRequest>({
+      query: (credentials) => ({
+        url: "user/login",
+        method: "POST",
+        body: credentials,
+      }),
+    }),
+    protected: builder.mutation<{ message: string }, void>({
+      query: () => "protected",
+    }),
   }),
 });
 
 export const {
+  useGetProductsQuery,
+  useGetProductByIdQuery,
   useGetSensorRecordsForDayQuery,
   useGetSensorRecordsPaginatedQuery,
-} = sensorApi;
+  useLoginMutation,
+  useProtectedMutation,
+} = APISlice;

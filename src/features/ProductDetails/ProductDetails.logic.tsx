@@ -1,4 +1,4 @@
-import { useGetProductByIdQuery } from "~/services/productsSlice";
+import { useGetProductByIdQuery } from "~/services/APISlice";
 
 type Props = {
   id: string;

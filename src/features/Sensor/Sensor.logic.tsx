@@ -1,5 +1,5 @@
 import moment from "moment";
-import { useGetSensorRecordsForDayQuery } from "~/services/sensorSlice";
+import { useGetSensorRecordsForDayQuery } from "~/services/APISlice";
 import { SensorType } from "~/static/types";
 import {
   selectSensorCount,

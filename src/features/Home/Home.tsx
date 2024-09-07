@@ -3,7 +3,7 @@ import ProductCard from "../Common/ProductCard";
 
 import { Grid, Skeleton, useTheme, useMediaQuery } from "@mui/material";
 import { ProductType } from "~/static/types";
-import { useGetProductsQuery } from "~/services/productsSlice";
+import { useGetProductsQuery } from "~/services/APISlice";
 
 const Home: React.FC = () => {
   const { isLoading, data } = useGetProductsQuery("10");

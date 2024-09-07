@@ -1,6 +1,6 @@
 import { Button, Input } from "@mui/material";
 import { useDispatch } from "react-redux";
-import { useLoginMutation } from "~/services/authSliceAPI";
+import { useLoginMutation } from "~/services/APISlice";
 import { setCredentials } from "./authSlice";
 import { SubmitHandler, useForm } from "react-hook-form";
 

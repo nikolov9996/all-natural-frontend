@@ -1,12 +1,10 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import LayoutSlice from "~/features/Layout/LayoutSlice";
 import { LAYOUT_REDUCER_NAME, SENSOR_REDUCER_NAME } from "./constants";
-import { productsApi } from "~/services/productsSlice";
+import { APISlice } from "~/services/APISlice";
 import { setupListeners } from "@reduxjs/toolkit/query";
-import { sensorApi } from "~/services/sensorSlice";
 import sensorSlice from "~/features/Sensor/SensorSlice";
 import authSlice, { AUTH_REDUCER_NAME } from "~/features/Auth/authSlice";
-import { authSliceAPI } from "~/services/authSliceAPI";
 import {
   persistStore,
   persistReducer,
@@ -23,19 +21,16 @@ const persistConfig = {
   key: "root",
   version: 1,
   storage,
-  whitelist: [authSliceAPI.reducerPath, AUTH_REDUCER_NAME],
+  whitelist: [APISlice.reducerPath, AUTH_REDUCER_NAME],
   blacklist: [
     SENSOR_REDUCER_NAME,
     LAYOUT_REDUCER_NAME,
-    sensorApi.reducerPath,
-    productsApi.reducerPath,
+    APISlice.reducerPath,
   ],
 };
 
 const rootReducer = combineReducers({
-  [productsApi.reducerPath]: productsApi.reducer,
-  [sensorApi.reducerPath]: sensorApi.reducer,
-  [authSliceAPI.reducerPath]: authSliceAPI.reducer,
+  [APISlice.reducerPath]: APISlice.reducer,
   [LAYOUT_REDUCER_NAME]: LayoutSlice,
   [SENSOR_REDUCER_NAME]: sensorSlice,
   [AUTH_REDUCER_NAME]: authSlice,
@@ -49,10 +44,7 @@ const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    })
-      .concat(productsApi.middleware)
-      .concat(sensorApi.middleware)
-      .concat(authSliceAPI.middleware),
+    }).concat(APISlice.middleware),
 });
 
 const persistor = persistStore(store);

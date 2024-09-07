@@ -23,6 +23,16 @@ export type User = {
   avatar: string;
   isSeller: boolean;
   favorites: ProductType[];
-  comments: any[];
-  _id?: any;
+  comments: object[];
+  _id?: string;
 };
+
+export interface UserResponse {
+  user: User;
+  token: string;
+}
+
+export interface LoginRequest {
+  username: string;
+  password: string;
+}
