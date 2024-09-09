@@ -6,6 +6,7 @@ import { ROUTES } from "./contants";
 import Sensor from "~/features/Sensor/Sensor";
 import Messages from "~/features/Messages";
 import { WithLayout } from "~/features/Layout/WithLayout";
+import AuthPage from "~/features/Auth";
 
 export const router = createBrowserRouter([
   {
@@ -27,5 +28,9 @@ export const router = createBrowserRouter([
   {
     path: ROUTES.MESSAGES,
     element: <WithLayout component={<Messages />} />,
+  },
+  {
+    path: ROUTES.AUTH_PAGE,
+    element: <AuthPage />,
   },
 ]);

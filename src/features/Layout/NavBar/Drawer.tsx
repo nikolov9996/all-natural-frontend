@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { memo, useState } from "react";
 import {
   SwipeableDrawer,
   Box,
@@ -12,11 +12,18 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import MessageIcon from "@mui/icons-material/Message";
+import SignInIcon from "@mui/icons-material/Login";
+import ProfileIcon from "@mui/icons-material/AccountCircle";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "~/static/contants";
+import { useAppSelector } from "~/app/hooks";
+import { selectCurrentUser } from "~/features/Auth/authSlice";
+import { User } from "~/services/types";
 
 const Drawer: React.FC = () => {
   const navigate = useNavigate();
+  const user = useAppSelector(selectCurrentUser);
+
   const [state, setState] = useState<boolean>(false);
 
   const toggleDrawer =
@@ -33,6 +40,28 @@ const Drawer: React.FC = () => {
       setState(open);
     };
 
+  const AuthItem = memo(({ user }: { user: User | null }) => {
+    if (user) {
+      return (
+        <ListItemButton onClick={() => navigate(ROUTES.PROFILE)}>
+          <ListItemIcon>
+            <ProfileIcon />
+          </ListItemIcon>
+          <ListItemText primary={"Profile"} />
+        </ListItemButton>
+      );
+    } else {
+      return (
+        <ListItemButton onClick={() => navigate(ROUTES.AUTH_PAGE)}>
+          <ListItemIcon>
+            <SignInIcon />
+          </ListItemIcon>
+          <ListItemText primary={"Sign in"} />
+        </ListItemButton>
+      );
+    }
+  });
+
   const list = () => (
     <Box // TODO add to .style file with mobile version
       sx={{ width: 250 }}
@@ -42,12 +71,7 @@ const Drawer: React.FC = () => {
     >
       <List>
         <ListItem disablePadding>
-          <ListItemButton onClick={() => navigate(ROUTES.PROFILE)}>
-            <ListItemIcon>
-              <MessageIcon />
-            </ListItemIcon>
-            <ListItemText primary={"Profile"} />
-          </ListItemButton>
+          <AuthItem user={user} />
         </ListItem>
       </List>
       <Divider />
