@@ -5,7 +5,7 @@ on:
       - "*"
 
 jobs:
-  build:
+  lint_and_build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
