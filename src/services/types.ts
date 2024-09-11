@@ -28,7 +28,6 @@ export type User = {
 };
 
 export interface UserResponse {
-  user: User;
   token: string;
 }
 

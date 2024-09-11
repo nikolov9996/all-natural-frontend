@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import { useLoginMutation } from "~/services/APISlice";
 import { setCredentials } from "./authSlice";
 import { SubmitHandler, useForm } from "react-hook-form";
-import useAuth from "./useAuth";
 
 type Inputs = {
   username: string;
@@ -14,32 +13,27 @@ const AuthPage = () => {
   const dispatch = useDispatch();
   const [login, { isLoading, isError, isSuccess, error, data }] =
     useLoginMutation();
-  const { encryptPassword } = useAuth();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>();
+
   const onSubmit: SubmitHandler<Inputs> = async ({ password, username }) => {
-    const passwordHash = await encryptPassword(password);
-
-    if (typeof passwordHash !== "string") {
-      return; // handle unexpected error when implementing toasts
-    }
-
     const resp = await login({
       username,
-      password: passwordHash,
+      password,
     }).unwrap();
     dispatch(setCredentials(resp));
   };
+
   return (
     <div>
       AuthPage
       {isError && <p>Error: {JSON.stringify(error)}</p>}
       {isLoading && <p>Loading</p>}
       {isSuccess && (
-        <p>Success: response: {JSON.stringify(data?.user, null, 2)}</p>
+        <p>Success: response: {JSON.stringify(data?.token, null, 2)}</p>
       )}
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input defaultValue="user 1" {...register("username")} />
