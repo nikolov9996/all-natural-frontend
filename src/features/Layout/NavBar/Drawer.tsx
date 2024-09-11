@@ -18,11 +18,10 @@ import { useNavigate } from "react-router-dom";
 import { ROUTES } from "~/static/contants";
 import { useAppSelector } from "~/app/hooks";
 import { selectCurrentUser } from "~/features/Auth/authSlice";
-import { User } from "~/services/types";
 
 const Drawer: React.FC = () => {
   const navigate = useNavigate();
-  const user = useAppSelector(selectCurrentUser);
+  const token = useAppSelector(selectCurrentUser);
 
   const [state, setState] = useState<boolean>(false);
 
@@ -40,8 +39,8 @@ const Drawer: React.FC = () => {
       setState(open);
     };
 
-  const AuthItem = memo(({ user }: { user: User | null }) => {
-    if (user) {
+  const AuthItem = memo(({ token }: { token: string | null }) => {
+    if (token) {
       return (
         <ListItemButton onClick={() => navigate(ROUTES.PROFILE)}>
           <ListItemIcon>
@@ -71,7 +70,7 @@ const Drawer: React.FC = () => {
     >
       <List>
         <ListItem disablePadding>
-          <AuthItem user={user} />
+          <AuthItem token={token} />
         </ListItem>
       </List>
       <Divider />
