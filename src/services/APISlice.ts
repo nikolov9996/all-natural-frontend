@@ -52,7 +52,7 @@ export const APISlice = createApi({
     }),
     login: builder.mutation<UserResponse, LoginRequest>({
       query: (credentials) => ({
-        url: "user/login",
+        url: "auth/login",
         method: "POST",
         body: credentials,
       }),

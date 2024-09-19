@@ -28,7 +28,9 @@ export type User = {
 };
 
 export interface UserResponse {
-  token: string;
+  token: {
+    access_token: string;
+  };
 }
 
 export interface LoginRequest {

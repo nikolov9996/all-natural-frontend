@@ -1,8 +1,9 @@
 import { Button, Input } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { useLoginMutation } from "~/services/APISlice";
-import { setCredentials } from "./authSlice";
+import { setCredentials, signOut } from "./authSlice";
 import { SubmitHandler, useForm } from "react-hook-form";
+import useAuthPage from "./AuthPage.logic";
 
 type Inputs = {
   username: string;
@@ -10,6 +11,7 @@ type Inputs = {
 };
 
 const AuthPage = () => {
+  const { decodeJWT } = useAuthPage();
   const dispatch = useDispatch();
   const [login, { isLoading, isError, isSuccess, error, data }] =
     useLoginMutation();
@@ -24,7 +26,15 @@ const AuthPage = () => {
       username,
       password,
     }).unwrap();
-    dispatch(setCredentials(resp));
+
+    const decodedJwt = decodeJWT(resp.token.access_token);
+    if (!decodedJwt) {
+      dispatch(signOut());
+      return; // set basic error toast
+    }
+    dispatch(
+      setCredentials({ token: resp.token.access_token, user: decodedJwt })
+    );
   };
 
   return (
