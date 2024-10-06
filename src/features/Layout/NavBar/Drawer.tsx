@@ -17,11 +17,11 @@ import ProfileIcon from "@mui/icons-material/AccountCircle";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "~/static/contants";
 import { useAppSelector } from "~/app/hooks";
-import { selectCurrentUser } from "~/features/Auth/authSlice";
+import { selectToken } from "~/features/Auth/authSlice";
 
 const Drawer: React.FC = () => {
   const navigate = useNavigate();
-  const token = useAppSelector(selectCurrentUser);
+  const token = useAppSelector(selectToken);
 
   const [state, setState] = useState<boolean>(false);
 

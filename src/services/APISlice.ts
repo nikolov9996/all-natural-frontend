@@ -4,25 +4,37 @@ import {
   ProductsResponse,
   SensorDataPaginated,
   SensorResponse,
+  User,
   UserResponse,
 } from "./types";
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import {
+  BaseQueryApi,
+  createApi,
+  fetchBaseQuery,
+} from "@reduxjs/toolkit/query/react";
 import { apiUrl, buildQueryString, formatDateForRequest } from "./utils";
 import { RootState } from "~/app/store";
 
 export const PRODUCTS_API_REDUCER_PATH = "products-api";
 
+function prepareBearer(
+  headers: Headers,
+  {
+    getState,
+  }: Pick<BaseQueryApi, "getState" | "extra" | "endpoint" | "type" | "forced">
+) {
+  const token = (getState() as RootState)["auth-reducer"].token;
+  if (token) {
+    headers.set("authorization", `Bearer ${token}`);
+  }
+  return headers;
+}
+
 export const APISlice = createApi({
   reducerPath: PRODUCTS_API_REDUCER_PATH,
   baseQuery: fetchBaseQuery({
     baseUrl: apiUrl,
-    prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as RootState)["auth-reducer"].token;
-      if (token) {
-        headers.set("authorization", `Bearer ${token}`);
-      }
-      return headers;
-    },
+    prepareHeaders: prepareBearer,
   }),
   keepUnusedDataFor: 600, // save cached data for 10 min
   endpoints: (builder) => ({
@@ -52,13 +64,20 @@ export const APISlice = createApi({
     }),
     login: builder.mutation<UserResponse, LoginRequest>({
       query: (credentials) => ({
-        url: "user/login",
+        url: "auth/login",
         method: "POST",
         body: credentials,
       }),
     }),
-    protected: builder.mutation<{ message: string }, void>({
-      query: () => "protected",
+    getProfile: builder.query<User, string>({
+      query: (userId: string) => ({
+        url: `user/profile/${userId}`,
+        method: "GET",
+        headers:{
+          "test":"kyp"
+        }
+      }),
+      
     }),
   }),
 });
@@ -69,5 +88,6 @@ export const {
   useGetSensorRecordsForDayQuery,
   useGetSensorRecordsPaginatedQuery,
   useLoginMutation,
-  useProtectedMutation,
+  useGetProfileQuery,
+  useLazyGetProfileQuery
 } = APISlice;
