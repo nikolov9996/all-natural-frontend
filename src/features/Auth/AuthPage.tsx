@@ -4,6 +4,8 @@ import { useLoginMutation } from "~/services/APISlice";
 import { setCredentials, signOut } from "./authSlice";
 import { SubmitHandler, useForm } from "react-hook-form";
 import useAuthPage from "./AuthPage.logic";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "~/static/contants";
 
 type Inputs = {
   username: string;
@@ -11,6 +13,7 @@ type Inputs = {
 };
 
 const AuthPage = () => {
+  const navigate = useNavigate();
   const { decodeJWT } = useAuthPage();
   const dispatch = useDispatch();
   const [login, { isLoading, isError, isSuccess, error, data }] =
@@ -35,6 +38,7 @@ const AuthPage = () => {
     dispatch(
       setCredentials({ token: resp.token.access_token, user: decodedJwt })
     );
+    navigate(ROUTES.PROFILE);
   };
 
   return (
