@@ -1,8 +1,11 @@
 import { Button, Input } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { useLoginMutation } from "~/services/APISlice";
-import { setCredentials } from "./authSlice";
+import { setCredentials, signOut } from "./authSlice";
 import { SubmitHandler, useForm } from "react-hook-form";
+import useAuthPage from "./AuthPage.logic";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "~/static/contants";
 
 type Inputs = {
   username: string;
@@ -10,6 +13,8 @@ type Inputs = {
 };
 
 const AuthPage = () => {
+  const navigate = useNavigate();
+  const { decodeJWT } = useAuthPage();
   const dispatch = useDispatch();
   const [login, { isLoading, isError, isSuccess, error, data }] =
     useLoginMutation();
@@ -24,7 +29,20 @@ const AuthPage = () => {
       username,
       password,
     }).unwrap();
-    dispatch(setCredentials(resp));
+
+    const decodedJwt = decodeJWT(resp.access_token);
+    if (!decodedJwt) {
+      dispatch(signOut());
+      return; // set basic error toast
+    }
+    dispatch(
+      setCredentials({
+        access_token: resp.access_token,
+        refresh_token: resp.refresh_token,
+        user: decodedJwt,
+      })
+    );
+    navigate(ROUTES.PROFILE);
   };
 
   return (
@@ -33,7 +51,7 @@ const AuthPage = () => {
       {isError && <p>Error: {JSON.stringify(error)}</p>}
       {isLoading && <p>Loading</p>}
       {isSuccess && (
-        <p>Success: response: {JSON.stringify(data?.token, null, 2)}</p>
+        <p>Success: response: {JSON.stringify(data?.access_token, null, 2)}</p>
       )}
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input defaultValue="user 1" {...register("username")} />

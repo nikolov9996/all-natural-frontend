@@ -17,11 +17,11 @@ import ProfileIcon from "@mui/icons-material/AccountCircle";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "~/static/contants";
 import { useAppSelector } from "~/app/hooks";
-import { selectCurrentUser } from "~/features/Auth/authSlice";
+import { selectAccessToken } from "~/features/Auth/authSlice";
 
 const Drawer: React.FC = () => {
   const navigate = useNavigate();
-  const token = useAppSelector(selectCurrentUser);
+  const access_token = useAppSelector(selectAccessToken);
 
   const [state, setState] = useState<boolean>(false);
 
@@ -39,8 +39,8 @@ const Drawer: React.FC = () => {
       setState(open);
     };
 
-  const AuthItem = memo(({ token }: { token: string | null }) => {
-    if (token) {
+  const AuthItem = memo(({ access_token }: { access_token: string | null }) => {
+    if (access_token) {
       return (
         <ListItemButton onClick={() => navigate(ROUTES.PROFILE)}>
           <ListItemIcon>
@@ -70,7 +70,7 @@ const Drawer: React.FC = () => {
     >
       <List>
         <ListItem disablePadding>
-          <AuthItem token={token} />
+          <AuthItem access_token={access_token} />
         </ListItem>
       </List>
       <Divider />

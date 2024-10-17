@@ -4,27 +4,39 @@ import {
   ProductsResponse,
   SensorDataPaginated,
   SensorResponse,
+  User,
   UserResponse,
 } from "./types";
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import {
+  BaseQueryApi,
+  createApi,
+  fetchBaseQuery,
+} from "@reduxjs/toolkit/query/react";
 import { apiUrl, buildQueryString, formatDateForRequest } from "./utils";
 import { RootState } from "~/app/store";
 
-export const PRODUCTS_API_REDUCER_PATH = "products-api";
+export const MAIN_API_REDUCER_PATH = "main-api";
+
+function prepareBearer(
+  headers: Headers,
+  {
+    getState,
+  }: Pick<BaseQueryApi, "getState" | "extra" | "endpoint" | "type" | "forced">
+) {
+  const access_token = (getState() as RootState)["auth-reducer"].access_token;
+  if (access_token) {
+    headers.set("authorization", `Bearer ${access_token}`);
+  }
+  return headers;
+}
 
 export const APISlice = createApi({
-  reducerPath: PRODUCTS_API_REDUCER_PATH,
+  reducerPath: MAIN_API_REDUCER_PATH,
   baseQuery: fetchBaseQuery({
     baseUrl: apiUrl,
-    prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as RootState)["auth-reducer"].token;
-      if (token) {
-        headers.set("authorization", `Bearer ${token}`);
-      }
-      return headers;
-    },
+    prepareHeaders: prepareBearer,
   }),
-  keepUnusedDataFor: 600, // save cached data for 10 min
+  keepUnusedDataFor: 60, // save cached data for 10 min
   endpoints: (builder) => ({
     getProducts: builder.query<ProductsResponse, string>({
       query: (count: string) => {
@@ -52,13 +64,23 @@ export const APISlice = createApi({
     }),
     login: builder.mutation<UserResponse, LoginRequest>({
       query: (credentials) => ({
-        url: "user/login",
+        url: "auth/login",
         method: "POST",
         body: credentials,
       }),
     }),
-    protected: builder.mutation<{ message: string }, void>({
-      query: () => "protected",
+    getProfile: builder.query<User, string>({
+      query: (userId: string) => ({
+        url: `user/profile/${userId}`,
+        method: "GET",
+      }),
+    }),
+    refreshToken: builder.query<string, string>({
+      query: (userId) => ({
+        url: `auth/refresh-token`,
+        body: { userId },
+        method: "POST",
+      }),
     }),
   }),
 });
@@ -69,5 +91,7 @@ export const {
   useGetSensorRecordsForDayQuery,
   useGetSensorRecordsPaginatedQuery,
   useLoginMutation,
-  useProtectedMutation,
+  useGetProfileQuery,
+  useLazyGetProfileQuery,
+  useRefreshTokenQuery,
 } = APISlice;
