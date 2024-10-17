@@ -6,12 +6,14 @@ export const AUTH_REDUCER_NAME = "auth-reducer";
 
 type AuthStateType = {
   user: AuthUser | null;
-  token: string | null;
+  access_token: string | null;
+  refresh_token: string | null;
 };
 
 const initialState: AuthStateType = {
   user: null,
-  token: null,
+  access_token: null,
+  refresh_token: null,
 };
 
 const authSlice = createSlice({
@@ -21,15 +23,21 @@ const authSlice = createSlice({
     setCredentials: (
       state,
       {
-        payload: { token, user },
-      }: PayloadAction<{ token: string; user: AuthUser }>
+        payload: { access_token, refresh_token, user },
+      }: PayloadAction<{
+        access_token: string;
+        refresh_token: string;
+        user: AuthUser;
+      }>
     ) => {
       state.user = user;
-      state.token = token;
+      state.access_token = access_token;
+      state.refresh_token = refresh_token;
     },
     signOut: (state) => {
       state.user = null;
-      state.token = null;
+      state.access_token = null;
+      state.refresh_token = null;
     },
   },
 });
@@ -38,7 +46,8 @@ export const { setCredentials, signOut } = authSlice.actions;
 
 export default authSlice.reducer;
 
-export const selectToken = (state: RootState) => state["auth-reducer"].token;
+export const selectAccessToken = (state: RootState) =>
+  state["auth-reducer"].access_token;
 
 export const selectCurrentUser = (state: RootState) =>
   state["auth-reducer"].user;

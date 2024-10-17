@@ -5,7 +5,7 @@ import mainTheme from "./static/theme";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Provider } from "react-redux";
-import { store,persistor } from "./app/store";
+import { store, persistor } from "./app/store";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { PersistGate } from "redux-persist/integration/react";
@@ -17,13 +17,12 @@ function App() {
       <LocalizationProvider dateAdapter={AdapterMoment}>
         <Provider store={store}>
           <PersistGate persistor={persistor} loading={null}>
-              <ThemeProvider theme={mainTheme}>
-            <StyledEngineProvider injectFirst>
-              <AppRouter />
-            </StyledEngineProvider>
-          </ThemeProvider>
+            <ThemeProvider theme={mainTheme}>
+              <StyledEngineProvider injectFirst>
+                <AppRouter />
+              </StyledEngineProvider>
+            </ThemeProvider>
           </PersistGate>
-        
         </Provider>
       </LocalizationProvider>
     </>

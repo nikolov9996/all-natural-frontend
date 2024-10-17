@@ -30,13 +30,17 @@ const AuthPage = () => {
       password,
     }).unwrap();
 
-    const decodedJwt = decodeJWT(resp.token.access_token);
+    const decodedJwt = decodeJWT(resp.access_token);
     if (!decodedJwt) {
       dispatch(signOut());
       return; // set basic error toast
     }
     dispatch(
-      setCredentials({ token: resp.token.access_token, user: decodedJwt })
+      setCredentials({
+        access_token: resp.access_token,
+        refresh_token: resp.refresh_token,
+        user: decodedJwt,
+      })
     );
     navigate(ROUTES.PROFILE);
   };
@@ -47,7 +51,7 @@ const AuthPage = () => {
       {isError && <p>Error: {JSON.stringify(error)}</p>}
       {isLoading && <p>Loading</p>}
       {isSuccess && (
-        <p>Success: response: {JSON.stringify(data?.token, null, 2)}</p>
+        <p>Success: response: {JSON.stringify(data?.access_token, null, 2)}</p>
       )}
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input defaultValue="user 1" {...register("username")} />

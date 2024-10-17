@@ -15,7 +15,7 @@ import {
 import { apiUrl, buildQueryString, formatDateForRequest } from "./utils";
 import { RootState } from "~/app/store";
 
-export const PRODUCTS_API_REDUCER_PATH = "products-api";
+export const MAIN_API_REDUCER_PATH = "main-api";
 
 function prepareBearer(
   headers: Headers,
@@ -23,20 +23,20 @@ function prepareBearer(
     getState,
   }: Pick<BaseQueryApi, "getState" | "extra" | "endpoint" | "type" | "forced">
 ) {
-  const token = (getState() as RootState)["auth-reducer"].token;
-  if (token) {
-    headers.set("authorization", `Bearer ${token}`);
+  const access_token = (getState() as RootState)["auth-reducer"].access_token;
+  if (access_token) {
+    headers.set("authorization", `Bearer ${access_token}`);
   }
   return headers;
 }
 
 export const APISlice = createApi({
-  reducerPath: PRODUCTS_API_REDUCER_PATH,
+  reducerPath: MAIN_API_REDUCER_PATH,
   baseQuery: fetchBaseQuery({
     baseUrl: apiUrl,
     prepareHeaders: prepareBearer,
   }),
-  keepUnusedDataFor: 600, // save cached data for 10 min
+  keepUnusedDataFor: 60, // save cached data for 10 min
   endpoints: (builder) => ({
     getProducts: builder.query<ProductsResponse, string>({
       query: (count: string) => {
@@ -73,11 +73,14 @@ export const APISlice = createApi({
       query: (userId: string) => ({
         url: `user/profile/${userId}`,
         method: "GET",
-        headers:{
-          "test":"kyp"
-        }
       }),
-      
+    }),
+    refreshToken: builder.query<string, string>({
+      query: (userId) => ({
+        url: `auth/refresh-token`,
+        body: { userId },
+        method: "POST",
+      }),
     }),
   }),
 });
@@ -89,5 +92,6 @@ export const {
   useGetSensorRecordsPaginatedQuery,
   useLoginMutation,
   useGetProfileQuery,
-  useLazyGetProfileQuery
+  useLazyGetProfileQuery,
+  useRefreshTokenQuery,
 } = APISlice;
